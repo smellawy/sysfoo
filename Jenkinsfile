@@ -1,35 +1,38 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh 'mvn compile'
-      }
+    agent any
+
+    tools {
+        maven 'Maven'
     }
 
-    stage('Test') {
-      steps {
-        sh 'mvn clean test'
-      }
-    }
+    stages {
 
-    stage('Package') {
-      steps {
-        sh 'mvn package -DskipTests'
-      }
-    }
+        stage('Build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
 
-  }
-  tools {
-    maven 'Maven'
-  }
-  stage('Debug') {
-    steps {
-        sh '''
-        pwd
-        ls -R
-        '''
-    }
-}
+        stage('Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
 
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Debug') {
+            steps {
+                sh '''
+                pwd
+                ls -R
+                '''
+            }
+        }
+
+    }
 }
