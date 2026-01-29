@@ -23,4 +23,13 @@ pipeline {
   tools {
     maven 'Maven'
   }
+  stage('Debug') {
+    steps {
+        sh '''
+        pwd
+        ls -R
+        '''
+    }
+}
+
 }
